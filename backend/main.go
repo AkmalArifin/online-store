@@ -1,20 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, World!")
+func main() {
+	r := gin.Default()
+
+	r.GET("/", getEvents)
+
+	r.Run(":8090")
 }
 
-func main() {
-	http.HandleFunc("/", helloHandler)
-
-	fmt.Println("Server is listening on port 8090...")
-	err := http.ListenAndServe(":8090", nil)
-	if err != nil {
-		fmt.Println(err)
-	}
+func getEvents(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Hello, World!",
+	})
 }
