@@ -8,16 +8,35 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func getUsers(c *gin.Context) {
-	users, err := models.GetAllUsers()
+func getAddresses(c *gin.Context) {
+	addresses, err := models.GetAllAddresses()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not get data from database. Please try again!", "error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, users)
+	c.JSON(http.StatusOK, addresses)
 }
 
-func getUser(c *gin.Context) {
+func getAdresss(c *gin.Context) {
+	addressID, err := strconv.ParseInt(c.Param("id"), 10, 64)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse parameter input."})
+		return
+	}
+
+	var address models.Address
+	address, err = models.GetAddressById(addressID)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data.", "error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, address)
+}
+
+func getAddressesByUser(c *gin.Context) {
 	userID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 
 	if err != nil {
@@ -25,57 +44,62 @@ func getUser(c *gin.Context) {
 		return
 	}
 
-	var user models.User
-	user, err = models.GetUserById(userID)
+	var addresses []models.Address
+	addresses, err = models.GetAddressByUserId(userID)
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data.", "error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, addresses)
 }
 
-func createUser(c *gin.Context) {
-	var user models.User
-	err := c.ShouldBindJSON(&user)
+func createAddress(c *gin.Context) {
+	var address models.Address
+	err := c.ShouldBindJSON(&address)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data.", "error": err.Error()})
 		return
 	}
 
-	err = user.Save()
+	err = address.Save()
+
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse create data.", "error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"message": "User created!", "user": user})
+	c.JSON(http.StatusCreated, gin.H{"message": "Address created!", "address": address})
 }
 
-func updateUser(c *gin.Context) {
-	userID, err := strconv.ParseInt(c.Param("id"), 10, 64)
+func updateAddress(c *gin.Context) {
+	addressID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse parameter input."})
 		return
 	}
 
-	_, err = models.GetUserById(userID)
+	_, err = models.GetAddressById(addressID)
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data.", "error": err.Error()})
 		return
 	}
 
-	var updatedUser models.User
-	err = c.ShouldBindJSON(&updatedUser)
+	var updatedAddress models.Address
+	err = c.ShouldBindJSON(&updatedAddress)
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse request data.", "error": err.Error()})
 		return
 	}
 
-	updatedUser.ID = userID
-	err = updatedUser.Update()
+	updatedAddress.ID = addressID
+	err = updatedAddress.Update()
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not update data.", "error": err.Error()})
 		return
@@ -84,23 +108,25 @@ func updateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Data has been updated"})
 }
 
-func deleteUser(c *gin.Context) {
-	userID, err := strconv.ParseInt(c.Param("id"), 10, 64)
+func deleteAddress(c *gin.Context) {
+	addressID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse parameter input."})
 		return
 	}
 
-	var user models.User
-	user, err = models.GetUserById(userID)
+	var address models.Address
+	address, err = models.GetAddressById(addressID)
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data.", "error": err.Error()})
 		return
 	}
 
-	user.ID = userID
-	err = user.Delete()
+	address.ID = addressID
+	err = address.Delete()
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not delete data.", "error": err.Error()})
 		return
