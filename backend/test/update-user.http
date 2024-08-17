@@ -1,0 +1,15 @@
+PUT http://localhost:8090/users/1
+Content-Type: application/json
+
+{
+    "avatar": "This is avatar edited",
+    "first_name": "Avatar",
+    "last_name": "Aang",
+    "username": "AangnaA",
+    "email": "aang@example.com",
+    "password": "Avatar123",
+    "birth_of_date": "2002-09-25T00:00:00.000Z",
+    "phone_number": "+1111003",
+    "created_at": "2024-08-12T14:34:33Z",
+    "deleted_at": null
+}

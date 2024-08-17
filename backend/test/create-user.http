@@ -1,12 +1,12 @@
-POST http://localhost:8090/users
+POST http://localhost:8090/signup
 Content-Type: application/json
 
 {
     "avatar": "This is avatar",
     "first_name": "Ikan",
     "last_name": "Buwal",
-    "username": "ikan4",
-    "email": "ikan4@example.com",
+    "username": "ikan5",
+    "email": "ikan5@example.com",
     "password": "ikan123",
     "birth_of_date": "2002-09-25T00:00:00.000Z",
     "phone_number": "+1111002",
