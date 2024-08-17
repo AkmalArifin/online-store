@@ -9,9 +9,11 @@ import (
 
 var DB *sql.DB
 
-func InitDB() {
+func InitDB(account, password string) {
+	dataSource := account + ":" + password + "@tcp(localhost:3306)/online_store"
+
 	var err error
-	DB, err = sql.Open("mysql", "Akmal:2592@tcp(localhost:3306)/online_store")
+	DB, err = sql.Open("mysql", dataSource)
 
 	if err != nil {
 		panic("Could not connect to database.")
