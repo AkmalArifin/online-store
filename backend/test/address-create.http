@@ -1,0 +1,14 @@
+POST http://localhost:8090/addresses
+Content-Type: application/json
+
+{
+    "user_id": 5,
+    "title": "Love House",
+    "address_line_1": "Address 1",
+    "address_line_2": "Address 2",
+    "country": "Indonesia",
+    "city": "Sidoarjo",
+    "postal_code": "61271",
+    "landmark": "White house with black fence",
+    "phone_number": "+6282235173518"
+}
