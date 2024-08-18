@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -9,7 +10,9 @@ import (
 
 var DB *sql.DB
 
-func InitDB(account, password string) {
+func InitDB() {
+	account := os.Getenv("MYSQL_ACCOUNT")
+	password := os.Getenv("MYSQL_PASSWORD")
 	dataSource := account + ":" + password + "@tcp(localhost:3306)/online_store"
 
 	var err error

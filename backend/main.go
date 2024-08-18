@@ -1,8 +1,6 @@
 package main
 
 import (
-	"os"
-
 	"example.com/online-store/db"
 	"example.com/online-store/routes"
 	"github.com/gin-gonic/gin"
@@ -16,10 +14,7 @@ func main() {
 		panic(".env cannot be load.")
 	}
 
-	mysqlAccount := os.Getenv("MYSQL_ACCOUNT")
-	mysqlPassword := os.Getenv("MYSQL_PASSWORD")
-
-	db.InitDB(mysqlAccount, mysqlPassword)
+	db.InitDB()
 	r := gin.Default()
 
 	routes.RegisterRoutes(r)
