@@ -1,1 +1,2 @@
-DELETE http://localhost:8090/addresses/6
+DELETE http://localhost:8090/addresses/10
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlrYW41QGV4YW1wbGUuY29tIiwiZXhwIjoxNzIzOTk2NTkyLCJpYXQiOjE3MjM5ODkzOTIsInVzZXJJRCI6MTB9.tRGln1UVfRfTr4bKKmCUVLyqXHnKQfAgqV1d0HyRFDs

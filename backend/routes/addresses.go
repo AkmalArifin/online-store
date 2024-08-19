@@ -11,7 +11,7 @@ import (
 func getAddresses(c *gin.Context) {
 	addresses, err := models.GetAllAddresses()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not get data from database. Please try again!", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not get data from database. Please try again!"})
 		return
 	}
 	c.JSON(http.StatusOK, addresses)
@@ -29,7 +29,7 @@ func getAdresss(c *gin.Context) {
 	address, err = models.GetAddressById(addressID)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data.", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data."})
 		return
 	}
 
@@ -48,7 +48,7 @@ func getAddressesByUser(c *gin.Context) {
 	addresses, err = models.GetAddressByUserId(userID)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data.", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data."})
 		return
 	}
 
@@ -60,14 +60,15 @@ func createAddress(c *gin.Context) {
 	err := c.ShouldBindJSON(&address)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data.", "error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})
 		return
 	}
 
+	address.UserID = c.GetInt64("user_id")
 	err = address.Save()
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse create data.", "error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse create data."})
 		return
 	}
 
@@ -82,10 +83,16 @@ func updateAddress(c *gin.Context) {
 		return
 	}
 
-	_, err = models.GetAddressById(addressID)
+	userID := c.GetInt64("user_id")
+	address, err := models.GetAddressById(addressID)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data.", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data."})
+		return
+	}
+
+	if address.UserID != userID {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Not authorized to update address."})
 		return
 	}
 
@@ -93,7 +100,7 @@ func updateAddress(c *gin.Context) {
 	err = c.ShouldBindJSON(&updatedAddress)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse request data.", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse request data."})
 		return
 	}
 
@@ -101,7 +108,7 @@ func updateAddress(c *gin.Context) {
 	err = updatedAddress.Update()
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not update data.", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not update data."})
 		return
 	}
 
@@ -116,11 +123,16 @@ func deleteAddress(c *gin.Context) {
 		return
 	}
 
-	var address models.Address
-	address, err = models.GetAddressById(addressID)
+	userID := c.GetInt64("user_id")
+	address, err := models.GetAddressById(addressID)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data.", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not parse fetch data."})
+		return
+	}
+
+	if address.UserID != userID {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Not authorized to delete address."})
 		return
 	}
 
@@ -128,7 +140,7 @@ func deleteAddress(c *gin.Context) {
 	err = address.Delete()
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not delete data.", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not delete data."})
 		return
 	}
 

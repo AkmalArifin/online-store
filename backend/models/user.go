@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"time"
 
 	"example.com/online-store/db"
@@ -13,7 +14,7 @@ type User struct {
 	Avatar      null.String `json:"avatar"`
 	FirstName   null.String `json:"first_name"`
 	LastName    null.String `json:"last_name"`
-	Username    null.String `json:"username" validate:"required"`
+	Username    null.String `json:"username"`
 	Email       null.String `json:"email" validate:"required,email"`
 	Password    null.String `json:"password" validate:"required"`
 	BirthOfDate NullTime    `json:"birth_of_date"`
@@ -126,4 +127,24 @@ func (u *User) Delete() error {
 	_, err = stmt.Exec(time.Now(), u.ID)
 
 	return err
+}
+
+func (u *User) ValidateCredentials() error {
+	query := "SELECT id, password FROM users WHERE email = ?"
+	row := db.DB.QueryRow(query, u.Email)
+
+	var retrievedPassword string
+	err := row.Scan(&u.ID, &retrievedPassword)
+
+	if err != nil {
+		return errors.New("credentials invalid")
+	}
+
+	passwordIsValid := utils.CompareHashPassword(u.Password.String, retrievedPassword)
+
+	if !passwordIsValid {
+		return errors.New("credentials invalid")
+	}
+
+	return nil
 }

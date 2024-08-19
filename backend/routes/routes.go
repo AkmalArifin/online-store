@@ -1,21 +1,30 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"example.com/online-store/middlewares"
+	"github.com/gin-gonic/gin"
+)
 
 func RegisterRoutes(r *gin.Engine) {
 
+	// Group
+	auth := r.Group("/")
+	auth.Use(middlewares.Authenticate)
 	// User
 	r.GET("/users", getUsers)
 	r.GET("/users/:id", getUser)
-	r.POST("/signup", createUser)
+	r.POST("/users", createUser)
 	r.PUT("/users/:id", updateUser)
 	r.DELETE("/users/:id", deleteUser)
+
+	r.POST("/login", login)
+	// r.POST("/signup")
 
 	// Address
 	r.GET("/addresses", getAddresses)
 	r.GET("/addresses/:id", getAdresss)
 	r.GET("/addresses/user/:id", getAddressesByUser)
-	r.POST("/addresses", createAddress)
-	r.PUT("/addresses/:id", updateAddress)
-	r.DELETE("/addresses/:id", deleteAddress)
+	auth.POST("/addresses", createAddress)
+	auth.PUT("/addresses/:id", updateAddress)
+	auth.DELETE("/addresses/:id", deleteAddress)
 }

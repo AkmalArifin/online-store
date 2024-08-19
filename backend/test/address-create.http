@@ -1,9 +1,9 @@
 POST http://localhost:8090/addresses
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlrYW41QGV4YW1wbGUuY29tIiwiZXhwIjoxNzIzOTk1NzA1LCJpYXQiOjE3MjM5ODg1MDUsInVzZXJJRCI6MTB9.6Gkkd3JuAbMSjGrVbSIEQrTSlemyw25kkutFxCjRewA
 
 {
-    "user_id": 5,
-    "title": "Love House",
+    "title": "Real JWT House",
     "address_line_1": "Address 1",
     "address_line_2": "Address 2",
     "country": "Indonesia",
