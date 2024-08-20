@@ -115,7 +115,7 @@ func login(c *gin.Context) {
 	err := c.ShouldBindJSON(&user)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data."})
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse request data.", "error": err.Error()})
 		return
 	}
 
