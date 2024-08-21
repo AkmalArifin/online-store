@@ -1,8 +1,7 @@
 <template>
-	<header></header>
-	<main>
-		<LoginPage />
-	</main>
+	<div>
+		<LoginPage/>
+	</div>
 </template>
 
 <script setup lang="ts">
