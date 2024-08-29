@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<LoginPage/>
+		<router-view></router-view>
 	</div>
 </template>
 

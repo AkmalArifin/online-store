@@ -28,7 +28,7 @@ function registerClicked() {
 
 </script>
 
-<script>
+<script lang="ts">
 export default {
   name: 'RegisterPage',
 };

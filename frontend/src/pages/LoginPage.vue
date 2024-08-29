@@ -8,6 +8,7 @@
 			<input type="submit" value="Login">
 		</form>
 
+		<button @click="getCookie">Get Cookie</button>
 		<p>{{ email }}</p>
 	</div>
 </template>
@@ -29,15 +30,15 @@ async function loginClicked(event: Event) {
 		};
 
 		const response = await axios.post("http://localhost:8090/login", data);
-
-		console.log(response);
+		localStorage.setItem("token", response.data.token);
+		console.log("Token acquired!");
 	} catch (e) {
-		console.error(e)
+		console.error(e);
 	};
 }
 </script>
 
-<script>
+<script lang="ts">
 export default {
   name: 'LoginPage',
 };
