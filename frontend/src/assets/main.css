@@ -1,35 +1,30 @@
 @import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+h1 {
+  font: var(--h1);
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+h2 {
+  font: var(--h2);
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+h3 {
+  font: var(--h3);
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+h4 {
+  font: var(--h4);
 }
+
+.p1 {
+  font: var(--p1);
+}
+
+.p2 {
+  font: var(--p2);
+}
+
+.p3 {
+  font: var(--p3);
+}
+
