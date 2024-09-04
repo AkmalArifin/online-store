@@ -51,7 +51,7 @@ export default {
     margin-top: 32px;
     
     height: 60px;
-    width: max(20vw, 500px);
+    width: min(80vw, 500px);
     padding: 0px 32px;
     border-radius: 50px;
     border: var(--color-secondary) solid 3px;
