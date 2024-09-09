@@ -7,7 +7,7 @@
             <div class="section">
                 <h4>Resources</h4>
                 <p><router-link to="/" class="p2">Home</router-link></p>
-                <p><router-link to="/" class="p2">Store</router-link></p>
+                <p><router-link to="/store" class="p2">Store</router-link></p>
             </div>
             <div class="section">
                 <h4>Company</h4>
