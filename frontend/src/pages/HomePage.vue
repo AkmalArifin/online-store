@@ -29,8 +29,30 @@
                 <img src="/images/section-connect.jpg" alt="">
             </div>
         </div>
-        <div class="section">
-
+        <div class="section category-section">
+            <h1 class="title-category">What are you waiting for?</h1>
+            <div class="list-category">
+                <router-link class="category" to="">
+                    <img src="/images/category-pottery.png" alt="">
+                    <h4>Pottery</h4>
+                </router-link>
+                <router-link class="category" to="">
+                    <img src="/images/category-wood.png" alt="">
+                    <h4>Wood Craft</h4>
+                </router-link>
+                <router-link class="category" to="">
+                    <img src="/images/category-knitting.png" alt="">
+                    <h4>Knitting</h4>
+                </router-link>
+                <router-link class="category" to="">
+                    <img src="/images/category-home.png" alt="">
+                    <h4>Home Decor</h4>
+                </router-link>
+                <router-link class="category" to="">
+                    <img src="/images/category-stationery.png" alt="">
+                    <h4>Stationery</h4>
+                </router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -90,6 +112,39 @@ img {
     text-align: right;
 }
 
+.category-section {
+    background-color: var(--color-primary);
+    text-align: center;
+    max-width: 100vw;
+    
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.title-category {
+    color: var(--white);
+    margin-bottom: min(120px, 10vw);
+}
+
+.list-category {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-content: center;
+    justify-content: space-between;
+    gap: 30px 30px;
+
+}
+
+.list-category > .category {
+    flex: 1;
+    min-width: 180px;
+    text-decoration: none;
+
+    color: var(--white);
+}
+
 
 @media (max-width: 920px) {
     .img {
@@ -97,6 +152,12 @@ img {
     }
     .text {
         order: 2;   
+    }
+}
+
+@media (max-width: 430px) {
+    .category > img {
+        display: none;
     }
 }
 
