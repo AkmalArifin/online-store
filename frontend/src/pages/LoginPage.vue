@@ -8,8 +8,8 @@
 			<input type="submit" value="Login">
 		</form>
 
-		<button @click="getCookie">Get Cookie</button>
-		<p>{{ email }}</p>
+		<!-- <button @click="getCookie">Get Cookie</button> -->
+		<!-- <p>{{ email }}</p> -->
 	</div>
 </template>
 

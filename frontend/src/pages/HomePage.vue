@@ -54,16 +54,15 @@
                 </router-link>
             </div>
         </div>
+        <Footbar />
     </div>
 </template>
 
 <script setup lang="ts">
 import Hero from '../components/homepage/Hero.vue';
 import Navbar from '../components/navbar/Navbar.vue';
-
-
+import Footbar from '../components/footbar/Footbar.vue';
 </script>
-
 
 <script lang="ts">
 export default {
