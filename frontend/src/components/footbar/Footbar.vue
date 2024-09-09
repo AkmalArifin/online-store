@@ -47,7 +47,9 @@ export default {
 }
 
 .container {
+    margin: auto;
     margin-top: 70px;
+    max-width: 1028px;
 
     display: flex;
     justify-content: space-between;
